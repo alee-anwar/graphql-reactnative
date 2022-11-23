@@ -33,7 +33,6 @@ import React, { Component, useEffect, useState } from 'react';
 // // Initialize Firebase
 // initializeApp(firebaseConfig);
 
-
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -155,18 +154,18 @@ export default function Home({navigation}) {
   // });
 
 
-  db.collection('student')
-  .doc('umer')
-  .add({
-    campus: 'Pak Aims',
-    rollno: 1,
-    name:'Salman',
-    class:'BSE B',
-    key:10
-  })
-  .then(() => {
-    console.log('User added!');
-  });
+  // db.collection('student')
+  // .doc('umer')
+  // .add({
+  //   campus: 'Pak Aims',
+  //   rollno: 1,
+  //   name:'Salman',
+  //   class:'BSE B',
+  //   key:10
+  // })
+  // .then(() => {
+  //   console.log('User added!');
+  // });
 
 
   // firestore()

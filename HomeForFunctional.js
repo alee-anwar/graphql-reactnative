@@ -1,94 +1,80 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Button, FlatList } from 'react-native';
 import React, { Component, useEffect, useState } from 'react';
+import useFetch from './useFetch'
 
 export default function HomeForFunctional() {
-  
-  const [count, setCount] = useState(0)
-  const [number, setNumber] = useState(0)
-  const [flag, setFlag] = useState(0)
-
-  // Akaila Use Effect karay ga
-  // componentDidMount
-  // componentDidUpdate
-  // ComponentWillUnMount
+  const [flag, setFlag] = useState(0)  
+  // const [data] = useFetch("https://jsonplaceholder.typicode.com/todos");
+  const [data, setData] = useState(null);
 
   useEffect(()=>{
-    console.log('simple useEffect')
-  })
+    // console.log(data)
+    fetch("https://fakestoreapi.com/products")
+    .then(res=>res.json())
+    .then(data=>{
+      data[0].bookmark=1
+      for(var x=0;x<data.length;x++){
+        data[x].bookmark=0
+      }
 
-  useEffect(()=>{
-    console.log('simple useEffect []')
-    setFlag(flag+1)
-    return()=>{
-      console.log('Un Mounted')
+      // data[10].bookmark=1
+
+      setData(data)
+
+      console.log('data[3]',data[3])
     }
+    )
   },[])
-
-  useEffect(()=>{
-    console.log('simple useEffect count')
-  },[count])
-
-  useEffect(()=>{
-    console.log('simple useEffect flag')
-  },[flag])
-
-  useEffect(()=>{
-    console.log('simple useEffect number')
-  },[number])
-
-  useEffect(()=>{
-    console.log('simple useEffect All')
-  },[count,flag, number])
 
   return (
     <View style={{flex:1, backgroundColor:'white', alignItems:'center'}}>
-        <Text style={{fontSize:30, marginBottom:20, marginTop:20}}>
-          
-          Count is = {count}  and Number is {number} Flag {flag}
-          
-          </Text>
-        
-        {console.log('Return is called or not')}
-        
-        <Button
-          title="Update State for Count"
-          onPress={
-            ()=> setCount(count+1)
-          }
-        />
-
-        <Button
-          title="Update State for Number"
-          onPress={
-            ()=> setNumber(number+1)
-          }
-        />
-
-      <Button
-          title="Update State for Flag"
-          onPress={
-            ()=> setFlag(flag+1)
-          }
-        />
-
-        <Button
-          title="Update State for All"
-          onPress={
-            ()=> 
+      {console.log('Return')}
+      <FlatList
+        data={data}
+        extraData={flag}
+        renderItem={({item})=>(
+          <View>
             {
-              global.setting={
-                fs:150,
-                fc:'white',
-                bc:'green'
-              }
+              item.bookmark?(
+                <TouchableOpacity style={{marginBottom:10}}
+                onPress={()=>{
+                  console.log('pressed')
+                  item.bookmark=0
+                  data[data.indexOf(item)]=item
+                  console.log(data[data.indexOf(item)])
+                  setData(data)
+                  setFlag(flag+1)
+                }}
+                >
+                <Text style={{backgroundColor:'green'}}>
+                {item.title}
+              </Text>
+                </TouchableOpacity>
+               
+              ):(
+                <TouchableOpacity style={{marginBottom:10}}
+                onPress={()=>{
+                  console.log('pressed')
+                  item.bookmark=1
+                  data[data.indexOf(item)]=item
+                  console.log(data[data.indexOf(item)])
+                  setData(data)
+                  setFlag(flag+1)
+                }}
+                >
+                <Text style={{backgroundColor:'red'}}>
+                {item.title}
+              </Text>
+                </TouchableOpacity>
+              )
             }
-          }
-        />
-     
+           
+          </View>
+  )}
+      />
     </View>
   );
-
 }
 
 const styles = StyleSheet.create({
