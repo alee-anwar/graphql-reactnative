@@ -62,9 +62,21 @@ const dbreal = app.database('https://bseb-f0d27-default-rtdb.asia-southeast1.fir
 // const dbreal = app.database('https://bseb-f0d27-default-rtdb.asia-southeast1.firebasedatabase.app');
 // Please change your database URL to https://bseb-f0d27-default-rtdb.asia-southeast1.firebasedatabase.app (https://bseb-f0d27-default-rtdb.firebaseio.com/)
 
+import { useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+
+ const CONTINENT_QUERY = gql`
+ query ContinentQuery {
+  continents {
+    code
+    name
+  }
+}
+`;
+
 export default function Home({navigation}) {
 
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
   const createUser = () => {
     auth.createUserWithEmailAndPassword('akhzarn@yahoo.com','123456')
     .then( data =>{
@@ -106,8 +118,10 @@ export default function Home({navigation}) {
     })
   }
 
-  useEffect(()=>{
+  const { data, loading } = useQuery(CONTINENT_QUERY); //execute query
 
+  useEffect(()=>{
+    console.log('GraphQl == ', data.continents[0].name)
     global.setting={
       fs:50,
       fc:'green',
@@ -222,6 +236,7 @@ export default function Home({navigation}) {
     });
     return unsubscribe;
   }, [navigation]);
+
 
   return (
     <View style={{flex:1, backgroundColor:'white'}}>

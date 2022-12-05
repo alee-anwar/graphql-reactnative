@@ -5,31 +5,57 @@ import useFetch from './useFetch'
 
 export default function HomeForFunctional() {
   const [flag, setFlag] = useState(0)  
+  // console.log('I am in Function')
   // const [data] = useFetch("https://jsonplaceholder.typicode.com/todos");
   const [data, setData] = useState(null);
 
+  // useEffect(()=>{
+  //   console.log('I am in useEffect')
+  // })
+
   useEffect(()=>{
-    // console.log(data)
-    fetch("https://fakestoreapi.com/products")
-    .then(res=>res.json())
-    .then(data=>{
-      data[0].bookmark=1
-      for(var x=0;x<data.length;x++){
-        data[x].bookmark=0
-      }
+    console.log('I am in useEffect with Flag')
+    setFlag(flag+1)
 
-      // data[10].bookmark=1
+    const list = [
+      {qty:10, size:'XXL'},
+      {qty:2, size:'XL'},
+      {qty:8, size:'M'}
+    ]
+    const l = list.sort((a,b)=>(a.qty>b.qty) ? 1 : -1 )
+    console.log('after sorting',l)
 
-      setData(data)
 
-      console.log('data[3]',data[3])
-    }
-    )
   },[])
+
+  // useEffect(()=>{
+  //   const list = [
+  //     {qty:10, size:'XXL'},
+  //     {qty:2, size:'XL'},
+  //     {qty:8, size:'M'}
+  //   ]
+  //   list.sort((a,b)=>(a.qty>b.qty)? 1:-1 )
+  //   console.log('after sorting',list)
+  //   fetch("https://fakestoreapi.com/products")
+  //   .then(res=>res.json())
+  //   .then(data=>{
+  //     data[0].bookmark=1
+  //     for(var x=0;x<data.length;x++){
+  //       data[x].bookmark=0
+  //     }
+
+  //     // data[10].bookmark=1
+
+  //     setData(data)
+
+  //     console.log('data[3]',data[3])
+  //   }
+  //   )
+  // },[])
 
   return (
     <View style={{flex:1, backgroundColor:'white', alignItems:'center'}}>
-      {console.log('Return')}
+      {/* {console.log('My name is Return')} */}
       <FlatList
         data={data}
         extraData={flag}
