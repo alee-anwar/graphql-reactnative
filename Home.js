@@ -3,27 +3,25 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Button, Fla
 import React, { Component, useEffect, useState } from 'react';
 
 import { useQuery, gql } from '@apollo/client';
+import { COUNTRY_QUERY, Task_2, Task_3 } from './query';
 
-const COUNTRY_QUERY = gql`
-  query CountryQuery{
-    countries{
-      name
-    }
-  }
-`
 
 export default function Home({navigation}) {
 
-  const{data, loading} = useQuery(COUNTRY_QUERY)
+  const{data, loading} = useQuery(Task_3)
+  const{data:data1, loading1} = useQuery(Task_2)
 
   useEffect(()=>{
     console.log('GraphQL ===', data)
+    console.log('Tast 2', data1)
+    // loading[useQuery(Task_2)]
+    // console.log('GraphQL ===', data)
   })
   return (
     <View style={{flex:1, backgroundColor:'white'}}>
       <Text style={{fontSize:38, justifyContent:'center'}}> GraphQL </Text>
       <FlatList
-        data={data.countries}
+        data={data?.countries}
         renderItem={ ({item}) =>
           <View style={{backgroundColor:'green', marginBottom:10, height:40}}>
             <Text style={{color:'white'}}>{item.name}</Text>
