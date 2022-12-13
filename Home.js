@@ -13,7 +13,7 @@ export default function Home({navigation}) {
 
   useEffect(()=>{
     console.log('GraphQL ===', data)
-    console.log('Tast ===', data1)
+    console.log('Task ===', data1)
     // loading[useQuery(Task_2)]
     // console.log('GraphQL ===', data)
   })
