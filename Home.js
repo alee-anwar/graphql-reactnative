@@ -8,20 +8,21 @@ import { COUNTRY_QUERY, Task_2, Task_3 } from './query';
 
 export default function Home({navigation}) {
 
-  const{data, loading} = useQuery(Task_3)
-  const{data:data1, loading1} = useQuery(Task_2)
+  // const{data, loading} = useQuery(COUNTRY_QUERY)
+  // const{data:data1, loading1} = useQuery(Task_2)
+  const{data, loading} = useQuery(Task_2)
+  const{data:data2, loading2} = useQuery(Task_3)
 
   useEffect(()=>{
-    console.log('GraphQL ===', data)
-    console.log('Task ===', data1)
-    // loading[useQuery(Task_2)]
-    // console.log('GraphQL ===', data)
+    // console.log('GraphQL ===', COUNTRY_QUERY)
+    console.log('Task2 ===', data)
+    console.log('Task3 ===', data2)
   })
   return (
     <View style={{flex:1, backgroundColor:'white'}}>
       <Text style={{fontSize:38, justifyContent:'center'}}> GraphQL </Text>
       <FlatList
-        data={data?.countries}
+        data={data2?.countries}
         renderItem={ ({item}) =>
           <View style={{backgroundColor:'green', marginBottom:10, height:40}}>
             <Text style={{color:'white'}}>{item.name}</Text>
