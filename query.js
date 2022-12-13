@@ -10,7 +10,7 @@ export const COUNTRY_QUERY = gql`
 
 export const Task_2 = gql`
     query {
-        country(code: "BR" ){
+        countries(filter:{code: {eq: "BR"}}){
         name
         }
     }
@@ -18,10 +18,12 @@ export const Task_2 = gql`
 
 
 export const Task_3 = gql`
-    query Task3Query{
-        country(code: "BR") {
-        name
-        currency        
+query CountryQuery {
+  countries(filter:{code: {eq: "AR"}}) {
+      code
+      name
+      native
     }
   }
 `
+
